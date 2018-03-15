@@ -17,7 +17,6 @@ export default StyleSheet.create({
     color: Colors.panther,
     fontSize: Fonts.size.medium,
     fontFamily: Fonts.type.bold
-
   }
 
 })

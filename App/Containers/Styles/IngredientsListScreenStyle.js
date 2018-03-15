@@ -30,6 +30,7 @@ export default StyleSheet.create({
     margin: Metrics.baseMargin,
     color: Colors.panther,
     backgroundColor: Colors.cloud,
-    height: 30
+    height: 30,
+    borderWidth: 0
     }
 })

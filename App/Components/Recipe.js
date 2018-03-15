@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-// import PropTypes from 'prop-types';
-import { View, Text } from 'react-native'
+import PropTypes from 'prop-types';
+import { TouchableOpacity, View, Text } from 'react-native'
 import styles from './Styles/RecipeStyle'
 
 export default class Recipe extends Component {
@@ -15,11 +15,17 @@ export default class Recipe extends Component {
   //   someSetting: false
   // }
 
+  static propTypes = {
+    name: PropTypes.string,
+    description: PropTypes.string
+  }
+
   render () {
     return (
-      <View style={styles.container}>
-        <Text>Recipe Component</Text>
-      </View>
+      <TouchableOpacity style={styles.container}>
+        <Text style={styles.name}>{this.props.name}</Text>
+        <Text style={styles.description}>{this.props.description}</Text>
+      </TouchableOpacity>
     )
   }
 }

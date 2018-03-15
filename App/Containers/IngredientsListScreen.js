@@ -3,23 +3,26 @@ import { View, ScrollView, ListView, Text, TextInput, ImageBackground, KeyboardA
 import { connect } from 'react-redux'
 import FullButton from '../Components/FullButton.js'
 import Ingredient from '../Components/Ingredient.js'
-
+import PrimaryNav from '../Navigation/AppNavigation.js'
 
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
 
 // Styles
 import styles from './Styles/IngredientsListScreenStyle'
-const remote = 'http://www.mobileswall.com/wp-content/uploads/2014/11/640-Food-l.jpg';
+const remote = 'https://images6.alphacoders.com/659/thumb-1920-659174.jpg';
 
 class IngredientsListScreen extends Component {
 
   constructor(props) {
     super(props);
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-
+    var ings = []
+    if (this.props.navigation.state.ingredients){
+      ings = this.props.navigation.state.ingredients.slice()
+    }
     this.state = {
-      ingredients: [],
+      ingredients: ings,
       ingredientsDS: ds.cloneWithRows([]),
       text: ''
     };
@@ -40,10 +43,11 @@ class IngredientsListScreen extends Component {
 
       <View style={styles.container}>
         <ImageBackground  style={{flex: 1}}
-                source={{ uri: remote }}
-                >
-          <Text style={styles.sectionText}>IngredientsListScreen</Text>
+          source={{ uri: remote }}
+        >
+          <Text style={styles.sectionText}>Podaj listę składników... </Text>
           <TextInput
+            underlineColorAndroid="transparent"
             style={styles.input}
             onChangeText={(text) => this.setState({text})}
             value={this.state.text}
@@ -55,15 +59,18 @@ class IngredientsListScreen extends Component {
           />
           <ScrollView style={styles.container}>
 
-          <ListView
-            style={styles.list}
-            dataSource={this.state.ingredientsDS}
-            renderRow={(rowData) => <Ingredient name={rowData}/>}
-          />
-        </ScrollView>
-        <FullButton
-          text='Szukaj!'
-          onPress={() => this.onDataArrived()}
+            <ListView
+              enableEmptySections={true}
+              style={styles.list}
+              dataSource={this.state.ingredientsDS}
+              renderRow={(rowData) => <Ingredient name={rowData}/>}
+            />
+          </ScrollView>
+          <FullButton
+            text='Szukaj!'
+            onPress={() =>
+              this.props.navigation.navigate('RecipiesScreen', {ing: this.state.ingredients})
+            }
         />
 
       </ImageBackground>

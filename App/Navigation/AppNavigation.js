@@ -13,7 +13,7 @@ const PrimaryNav = StackNavigator({
 }, {
   // Default config for all screens
   headerMode: 'none',
-  initialRouteName: 'RecipiesScreen',
+  initialRouteName: 'IngredientsListScreen',
   navigationOptions: {
     title: 'Hello nav',
     headerStyle: styles.header
