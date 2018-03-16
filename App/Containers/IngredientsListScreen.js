@@ -72,6 +72,12 @@ class IngredientsListScreen extends Component {
               this.props.navigation.navigate('RecipiesScreen', {ing: this.state.ingredients})
             }
         />
+        <FullButton
+          text='Dodaj nowy!'
+          onPress={() =>
+            this.props.navigation.navigate('AddNewRecipeScreen', {ing: this.state.ingredients})
+          }
+      />
 
       </ImageBackground>
       </View>
