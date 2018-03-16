@@ -25,7 +25,13 @@ class RecipiesScreen extends Component {
   }
 
   getFromSafeInfo() {
-    return fetch(`http://mysafeinfo.com/api/data?list=alcoholicbeverages&format=json&dsc=${this.state.ing[0]},contains`)
+  //  return fetch(`http://mysafeinfo.com/api/data?list=alcoholicbeverages&format=json&dsc=${this.state.ing[0]},contains`)
+
+    return fetch(`https://alkore-c976.restdb.io/rest/drinki`, {
+      method: 'get',
+      headers:    { 'cache-control': 'no-cache',
+        'x-apikey': 'b79d180231fa5dc79dde2fbb3908705b96ee4' }
+    })
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({
@@ -52,10 +58,16 @@ class RecipiesScreen extends Component {
               enableEmptySections={true}
               style={styles.list}
               dataSource={this.state.rds}
-              renderRow={(rowData) => <Recipe name={rowData.nm} description={rowData.dsc} />}
+              renderRow={(rowData) => <Recipe
+                name={rowData.name}
+                description={rowData.ingredients}
+                onPress={() =>
+                  this.props.navigation.navigate('DrinkScreen', {name: rowData.name, ingredients: rowData.ingredients})
+                }
+              />}
             />
           </ScrollView>
-          
+
             <FullButton
               text='Take me back'
               onPress={() =>
